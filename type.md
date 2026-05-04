@@ -28,3 +28,10 @@ Google (2)
 
 6 months ago:
 tcs (3)
+
+Problem Details: LeetCode 287
+Type: Two-Pointer / Floyd's Cycle Detection (Tortoise and Hare)。
+
+Difficulty: Medium。Core Concepts: Linked List Cycle Logic, 
+
+Constant Space ($O(1)$), Linear Time ($O(n)$)。
