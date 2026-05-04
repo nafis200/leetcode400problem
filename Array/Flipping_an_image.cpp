@@ -9,27 +9,41 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-vector<vector<int>> InvertImage(vector<vector<int>>& image) {
-  int rows = image.size();
-  int cols = image[0].size();
-  for (int i = 0; i < rows; i++) {
-    int j = 0, k = cols - 1;
-    while (j < k) {
-      swap(image[i][j], image[i][k]);
-      j++;
-      k--;
-    }
-  }
-  return image;
-}
+// vector<vector<int>> InvertImage(vector<vector<int>>& image) {
+//   int rows = image.size();
+//   int cols = image[0].size();
+//   for (int i = 0; i < rows; i++) {
+//     int j = 0, k = cols - 1;
+//     while (j < k) {
+//       swap(image[i][j], image[i][k]);
+//       j++;
+//       k--;
+//     }
+//   }
+//   return image;
+// }
+
+// vector<vector<int>> flipAndInvertImage(vector<vector<int>>& image) {
+//   auto it = InvertImage(image);
+//   int rows = image.size();
+//   int cols = image[0].size();
+//   for (int i = 0; i < rows; i++) {
+//     for (int j = 0; j < cols; j++) {
+//       image[i][j] ^= 1;
+//     }
+//   }
+//   return image;
+// }
 
 vector<vector<int>> flipAndInvertImage(vector<vector<int>>& image) {
-  auto it = InvertImage(image);
+  
   int rows = image.size();
   int cols = image[0].size();
   for (int i = 0; i < rows; i++) {
-    for (int j = 0; j < cols; j++) {
-      image[i][j] ^= 1;
+    for (int j = 0; j < (cols + 1) / 2; j++) {
+        if(image[i][j] == image[i][cols -1- j]){
+             image[i][j] = image[i][cols - 1 - j] = image[i][j] ^ 1;
+        }
     }
   }
   return image;
