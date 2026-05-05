@@ -56,3 +56,4 @@ TransformationDifficulty: MediumCore
 
 Concepts:Matrix Transposition: 
 Swapping elements across the main diagonal ($matrix[i][j]$ with $matrix[j][i]$).In-place Algorithms: Modifying the input data structure directly to achieve $O(1)$ extra space complexity.Symmetry & Reflection: Using geometric properties (transposing then flipping) to achieve rotation without complex index mapping.
+
