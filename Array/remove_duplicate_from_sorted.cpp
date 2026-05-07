@@ -13,26 +13,43 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int removeDuplicates(vector<int>& nums) {
-     map<int,int>mp;
-     int k = 0;
-     for(auto it : nums){
-         if(mp[it] < 2){
-            mp[it]++;
-            k++;
+// int removeDuplicates(vector<int>& nums) {
+//      map<int,int>mp;
+//      int k = 0;
+//      for(auto it : nums){
+//          if(mp[it] < 2){
+//             mp[it]++;
+//             k++;
+//          }
+//      } 
+//      vector<int>ans;
+
+//      for(auto it : nums){
+//         while(mp[it] > 0){
+//             ans.push_back(it);
+//             mp[it]--;
+//         }
+//      }
+//      nums = ans;
+
+//      return k;
+// }
+
+// time o(n) space o(1)
+
+int removeDuplicates(vector<int>& nums){
+    if(nums.size() <= 2){
+        return nums.size();
+    }
+    int j = 2;
+    for(int i = 2; i < nums.size(); i++){
+         if(nums[i] != nums[j - 2]){
+             nums[j] = nums[i];
+             j++;
          }
-     } 
-     vector<int>ans;
+    }
+    return j;
 
-     for(auto it : nums){
-        while(mp[it] > 0){
-            ans.push_back(it);
-            mp[it]--;
-        }
-     }
-     nums = ans;
-
-     return k;
 }
 
 int32_t main(){
