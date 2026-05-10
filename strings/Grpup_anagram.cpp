@@ -10,11 +10,13 @@
 // Yandex (34) — Zoho (15) — Yahoo (12) — ServiceNow (11) — EPAM Systems (9) —
 // PayPal (8) — BP (6) — J.P. Morgan (5) — Visa (5) — eBay (4)
 
-
 // time o(n * klogk) space o(n * k)
+
+// problem Link: https://leetcode.com/problems/group-anagrams/description/
 
 #include <bits/stdc++.h>
 using namespace std;
+
 vector<vector<string>> groupAnagrams(vector<string>& strs) {
   map<string, vector<string>> mp;
   for (auto it : strs) {
@@ -34,6 +36,8 @@ vector<vector<string>> groupAnagrams(vector<string>& strs) {
   }
   return st;
 }
+
+
 int32_t main() {
   ios_base::sync_with_stdio(0);
   cin.tie(0);
