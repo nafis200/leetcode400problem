@@ -14,59 +14,103 @@
 // problem Link:
 // https://leetcode.com/problems/minimum-window-substring/description/
 
-
 #include <bits/stdc++.h>
 using namespace std;
 
+// time o(n^2) space o(1)
+
+// string minWindow(string s, string t) {
+//     int n = s.size();
+//     int minLen = INT_MAX;
+//     string ans = "";
+
+//     unordered_map<char, int> target;
+
+//     for (char c : t) {
+//         target[c]++;
+//     }
+
+//     for (int i = 0; i < n; i++) {
+//         unordered_map<char, int> freq;
+
+//         for (int j = i; j < n; j++) {
+//             freq[s[j]]++;
+
+//             bool ok = true;
+
+//             for (auto it : target) {
+//                 if (freq[it.first] < it.second) {
+//                     ok = false;
+//                     break;
+//                 }
+//             }
+
+//             if (ok) {
+//                 if (j - i + 1 < minLen) {
+//                     minLen = j - i + 1;
+//                     ans = s.substr(i, minLen);
+//                 }
+//             }
+//         }
+//     }
+
+//     return ans;
+// }
+
+// s = bbbbba
+// t = bba
+
+// time o(n + m) space o(1)
+
 string minWindow(string s, string t) {
-    int n = s.size();
-    int minLen = INT_MAX;
-    string ans = "";
+  int n = s.size();
+  unordered_map<char, int> need;
+  for (auto it : t) {
+    need[it]++;
+  }
+  int required = need.size();
 
-    unordered_map<char, int> target;
+  int form = 0;
+  int left = 0, start = 0;
 
-    for (char c : t) {
-        target[c]++;
+  unordered_map<char, int> window;
+  int minLen = INT_MAX;
+  for (int right = 0; right < n; right++) {
+    char c = s[right];
+    window[c]++;
+    if (need.count(c) && window[c] == need[c]) {
+      form++;
     }
-
-    for (int i = 0; i < n; i++) {
-        unordered_map<char, int> freq;
-
-        for (int j = i; j < n; j++) {
-            freq[s[j]]++;
-
-            bool ok = true;
-
-            for (auto it : target) {
-                if (freq[it.first] < it.second) {
-                    ok = false;
-                    break;
-                }
-            }
-
-            if (ok) {
-                if (j - i + 1 < minLen) {
-                    minLen = j - i + 1;
-                    ans = s.substr(i, minLen);
-                }
-            }
-        }
+    while (form == required) {
+      if (right - left + 1 < minLen) {
+        start = left;
+        minLen = right - left + 1;
+      }
+      char ch = s[left];
+      window[ch]--;
+      if (window.count(ch) && window[ch] < need[ch]) {
+        form--;
+      }
+      left++;
     }
-
-    return ans;
+  }
+  if (minLen == INT_MAX) {
+    return "";
+  }
+  return s.substr(start, minLen);
 }
 
 int32_t main() {
-    ios_base::sync_with_stdio(0);
-    cin.tie(0);
-    cout.tie(0);
+  ios_base::sync_with_stdio(0);
+  cin.tie(0);
+  cout.tie(0);
 
-    string s, t;
+  string s, t;
 
-    s = "ADOBECODEBANC";
-    t = "ABC";
+  s = "ABBC";
+  t = "ABC";
 
-    string ans = minWindow(s, t);
+  string ans = minWindow(s, t);
 
-    cout << ans << "\n";
+  cout << ans << "\n";
 }
