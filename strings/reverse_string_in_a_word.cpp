@@ -37,6 +37,17 @@ using namespace std;
 //     return s1;
 // }
 
+// time o(n) space o(1)
+
+void reverse(string &s, int left, int right) {
+  while (left < right) {
+        swap(s[left], s[right]);
+        left++;
+        right--;
+    }
+
+}
+
 string reverseWords(string s) {
   int i = 0, j = 0;
   int n = s.size();
@@ -44,20 +55,33 @@ string reverseWords(string s) {
     while (j < n && s[j] == ' ') {
       j++;
     }
-    while(j < n && s[j] != ' '){
-       s[i] = s[j];
-       j++;
-       i++;
+    while (j < n && s[j] != ' ') {
+      s[i] = s[j];
+      j++;
+      i++;
     }
-    while(j < n && s[j] == ' '){
+    while (j < n && s[j] == ' ') {
       j++;
     }
-    if(j < n){
-       s[i] = ' ';
-       i++;
+    if (j < n) {
+      s[i] = ' ';
+      i++;
     }
   }
+
   s.resize(i);
+
+  reverse(s, 0, s.size() - 1);
+  n = s.size();
+
+  for(int i = 0; i < n; i++){
+     int left = i;
+     while(i < n && s[i] != ' '){
+        i++;
+     }
+     reverse(s, left, i - 1);
+  }
+
   return s;
 }
 
