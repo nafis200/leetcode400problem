@@ -35,7 +35,7 @@ vector<string> fullJustify(vector<string>& words, int maxWidth) {
     if (wordCount == 1 || j == n) {
       for (int k = i; k < j; k++) {
         line += words[k];
-        if(line.length() < maxWidth){
+        if(k < j - 1){
             line += " ";
         }
       }
