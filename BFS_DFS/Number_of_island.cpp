@@ -17,33 +17,77 @@ using namespace std;
 
 // time o(n * m) space o(n * m)
 
+// int dx[4] = {-1, 0, 1, 0};
+// int dy[4] = {0, 1, 0, -1};
+
+// bool isValid(vector<vector<char>>& grid, int i, int j,
+//              vector<vector<bool>>& visited) {
+//   int row = grid.size();
+//   int col = grid[0].size();
+//   if (i >= 0 && i <= row - 1 && j >= 0 && j <= col - 1 &&
+//       visited[i][j] == false && grid[i][j] != '0') {
+//     return true;
+//   }
+//   return false;
+// }
+
+// void DFS(vector<vector<char>>& grid, int i, int j,vector<vector<bool>>& visited){
+//     visited[i][j] = true;
+//     for(int k = 0; k < 4; k++){
+//         int next_i = i + dx[k];
+//         int next_j = j + dy[k];
+//         if(isValid(grid, next_i, next_j, visited)){
+//            DFS(grid, next_i, next_j, visited);   
+//         }
+//     }
+// }
+
+// int numIslands(vector<vector<char>>& grid) {
+//   vector<vector<bool>> visited(grid.size(),vector<bool>(grid[0].size(), false));
+
+//   int row = grid.size();
+//   int col = grid[0].size();
+//   int ans = 0;
+
+//   for(int i = 0; i < row; i++){
+//      for(int j = 0; j < col; j++){
+//          if(visited[i][j] == false && grid[i][j] != '0'){
+//             DFS(grid, i, j, visited);
+//             ans++;
+//          }
+//      }
+//   }
+
+//   return ans;
+
+// }
+
+// time o(n * m) space o(1)
+
 int dx[4] = {-1, 0, 1, 0};
 int dy[4] = {0, 1, 0, -1};
 
-bool isValid(vector<vector<char>>& grid, int i, int j,
-             vector<vector<bool>>& visited) {
+bool isValid(vector<vector<char>>& grid, int i, int j) {
   int row = grid.size();
   int col = grid[0].size();
-  if (i >= 0 && i <= row - 1 && j >= 0 && j <= col - 1 &&
-      visited[i][j] == false && grid[i][j] != '0') {
+  if (i >= 0 && i <= row - 1 && j >= 0 && j <= col - 1 && grid[i][j] != '0') {
     return true;
   }
   return false;
 }
 
-void DFS(vector<vector<char>>& grid, int i, int j,vector<vector<bool>>& visited){
-    visited[i][j] = true;
+void DFS(vector<vector<char>>& grid, int i, int j){
+    grid[i][j] = '0';
     for(int k = 0; k < 4; k++){
         int next_i = i + dx[k];
         int next_j = j + dy[k];
-        if(isValid(grid, next_i, next_j, visited)){
-           DFS(grid, next_i, next_j, visited);   
+        if(isValid(grid, next_i, next_j)){
+           DFS(grid, next_i, next_j);   
         }
     }
 }
 
 int numIslands(vector<vector<char>>& grid) {
-  vector<vector<bool>> visited(grid.size(),vector<bool>(grid[0].size(), false));
 
   int row = grid.size();
   int col = grid[0].size();
@@ -51,8 +95,8 @@ int numIslands(vector<vector<char>>& grid) {
 
   for(int i = 0; i < row; i++){
      for(int j = 0; j < col; j++){
-         if(visited[i][j] == false && grid[i][j] != '0'){
-            DFS(grid, i, j, visited);
+         if(grid[i][j] != '0'){
+            DFS(grid, i, j);
             ans++;
          }
      }
@@ -61,6 +105,7 @@ int numIslands(vector<vector<char>>& grid) {
   return ans;
 
 }
+
 int32_t main() {
   ios_base::sync_with_stdio(0);
   cin.tie(0);
