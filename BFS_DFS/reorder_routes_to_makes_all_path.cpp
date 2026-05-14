@@ -14,6 +14,12 @@ using namespace std;
 
 // time o(v + e) = o(n) space o(n)
 
+// E = V - 1
+
+// O(V + E)
+// = O(V + (V - 1))
+// = O(2V - 1) o(v) o (n)
+
 int DFS(vector<vector<pair<int,int>>>&g, vector<bool>&visited, int node){
     visited[node] = true;
     int change = 0;
