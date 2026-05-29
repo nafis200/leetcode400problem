@@ -27,6 +27,16 @@
 //       |           |
 // ("(())",2,2)  ("()()",2,2)
 
+
+// Time: O(Catalan(n) * n)
+// Space: O(n)
+// Catalan Number: Cn = (1 / n + 1) * (2n combination n)
+
+// O(4 ^ n / root(n))
+
+// 2^(2n) = 4^n * n (both are acurate)
+
+
 #include<bits/stdc++.h>
 using namespace std;
 
