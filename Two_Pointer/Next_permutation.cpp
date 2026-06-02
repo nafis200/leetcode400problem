@@ -41,7 +41,10 @@ using namespace std;
 
 
 
+// [2,3,1]
+// [3,1,2]
 
+// for this reason j loop is continue
 
 void nextPermutation(vector<int>& nums) {
     int n = nums.size(); 
