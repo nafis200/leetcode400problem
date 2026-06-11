@@ -108,7 +108,7 @@ class Node {
             cur->next = copy->next;
 
             if (copy->next) {
-                copy->next = copy->next->next;
+                copy->next = cur->next->next;
             }
 
             cur = cur->next;
