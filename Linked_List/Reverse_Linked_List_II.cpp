@@ -74,6 +74,7 @@ ListNode* reverseList(ListNode* head, ListNode* tail) {
     ListNode* prev = NULL;
     ListNode* next = NULL;
     
+    
     for(int i = 1; i < left; i++){
          prev = leftNode;
          leftNode = leftNode->next;
