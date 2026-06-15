@@ -86,3 +86,104 @@ int32_t main(){
     cout << kthSmallest(root, 3) << "\n";
  
 }
+
+
+
+//           5 (6)
+//         /       \
+//      3 (4)      6 (1)
+//      /   \
+//   2 (2)   4 (1)
+//    /
+//  1 (1)
+
+
+
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// class Node {
+// public:
+//     int val;
+//     Node* left;
+//     Node* right;
+//     int size; // subtree size
+
+//     Node(int x) {
+//         val = x;
+//         left = right = NULL;
+//         size = 1;
+//     }
+// };
+
+// // get size safely
+// int getSize(Node* root) {
+//     return root ? root->size : 0;
+// }
+
+// // update size after changes
+// void update(Node* root) {
+//     if (root) {
+//         root->size = 1 + getSize(root->left) + getSize(root->right);
+//     }
+// }
+
+// // INSERT in BST + update size
+// Node* insert(Node* root, int val) {
+//     if (!root) return new Node(val);
+
+//     if (val < root->val)
+//         root->left = insert(root->left, val);
+//     else
+//         root->right = insert(root->right, val);
+
+//     update(root);
+//     return root;
+// }
+
+// // Kth smallest using subtree size
+// int kthSmallest(Node* root, int k) {
+//     if (!root) return -1;
+
+//     int leftSize = getSize(root->left);
+
+//     // go left
+//     if (k <= leftSize) {
+//         return kthSmallest(root->left, k);
+//     }
+
+//     // root is answer
+//     if (k == leftSize + 1) {
+//         return root->val;
+//     }
+
+//     // go right
+//     return kthSmallest(root->right, k - leftSize - 1);
+// }
+
+// // inorder print (debug)
+// void inorder(Node* root) {
+//     if (!root) return;
+//     inorder(root->left);
+//     cout << root->val << " ";
+//     inorder(root->right);
+// }
+
+// int main() {
+//     Node* root = NULL;
+
+//     vector<int> arr = {5, 3, 6, 2, 4, 1};
+
+//     for (int x : arr) {
+//         root = insert(root, x);
+//     }
+
+//     cout << "Inorder (sorted): ";
+//     inorder(root);
+//     cout << "\n";
+
+//     int k = 4;
+//     cout << k << "th smallest = " << kthSmallest(root, k) << "\n";
+
+//     return 0;
+// }
