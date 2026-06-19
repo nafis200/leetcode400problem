@@ -5,9 +5,11 @@
 // Microsoft (3)
 
 // 6 months ago:
-// Snowflake (5) — Oracle (4) — Adobe (3) — Flipkart (3) — Salesforce (3) — Apple (2) — Walmart Labs (2) — ServiceNow (2)
+// Snowflake (5) — Oracle (4) — Adobe (3) — Flipkart (3) — Salesforce (3) —
+// Apple (2) — Walmart Labs (2) — ServiceNow (2)
 
-// Problem_Links: https://leetcode.com/problems/populating-next-right-pointers-in-each-node/description/
+// Problem_Links:
+// https://leetcode.com/problems/populating-next-right-pointers-in-each-node/description/
 
 //         1
 //       /   \
@@ -19,49 +21,47 @@
 using namespace std;
 
 class Node {
-public:
-    int val;
-    Node* left;
-    Node* right;
-    Node* next;
+ public:
+  int val;
+  Node* left;
+  Node* right;
+  Node* next;
 
-    Node(int x) {
-        val = x;
-        left = NULL;
-        right = NULL;
-        next = NULL;
-    }
+  Node(int x) {
+    val = x;
+    left = NULL;
+    right = NULL;
+    next = NULL;
+  }
 };
 
-
 Node* BuildTree(vector<int>& arr) {
-    if (arr.empty()) return NULL;
+  if (arr.empty()) return NULL;
 
-    Node* root = new Node(arr[0]);
+  Node* root = new Node(arr[0]);
 
-    queue<Node*> q;
-    q.push(root);
+  queue<Node*> q;
+  q.push(root);
 
-    int i = 1;
+  int i = 1;
 
-    while (!q.empty() && i < arr.size()) {
-        Node* cur = q.front();
-        q.pop();
+  while (!q.empty() && i < arr.size()) {
+    Node* cur = q.front();
+    q.pop();
 
-        if (i < arr.size()) {
-            cur->left = new Node(arr[i++]);
-            q.push(cur->left);
-        }
-
-        if (i < arr.size()) {
-            cur->right = new Node(arr[i++]);
-            q.push(cur->right);
-        }
+    if (i < arr.size()) {
+      cur->left = new Node(arr[i++]);
+      q.push(cur->left);
     }
 
-    return root;
-}
+    if (i < arr.size()) {
+      cur->right = new Node(arr[i++]);
+      q.push(cur->right);
+    }
+  }
 
+  return root;
+}
 
 //         1
 //       /   \
@@ -69,31 +69,76 @@ Node* BuildTree(vector<int>& arr) {
 //     / \   / \
 //    4   5 6   7
 
- Node* connect(Node* root) {
-    
-      if(root == NULL){
-         return NULL;
-      }
+Node* connect(Node* root) {
+  if (root == NULL) {
+    return NULL;
+  }
 
-      if(root->left){
-        root->left->next = root->right;
-      }
-      if(root->right && root->next){
-        root->right->next = root->next->left;
-      }
-      connect(root->left);
-      connect(root->right);
+  if (root->left) {
+    root->left->next = root->right;
+  }
+  if (root->right && root->next) {
+    root->right->next = root->next->left;
+  }
+  connect(root->left);
+  connect(root->right);
 
-      return root;
- } 
-
+  return root;
+}
 
 int main() {
+  vector<int> arr = {1, 2, 3, 4, 5, 6, 7};
 
-    vector<int> arr = {1, 2, 3, 4, 5, 6, 7};
+  Node* root = BuildTree(arr);
 
-    Node* root = BuildTree(arr);
-    
-    root = connect(root);
-   
+  root = connect(root);
+}
+
+        //        1
+        //      /   \
+        //     2     3
+        //    / \     \
+        //   4   5     6
+        //  /           \
+        // 7             8
+// populating ||
+Node* findNext(Node* root) {
+  Node* temp = root->next;
+
+  while (temp) {
+    if (temp->left) {
+      return temp->left;
+    }
+
+    if (temp->right) {
+      return temp->right;
+    }
+
+    temp = temp->next;
+  }
+
+  return NULL;
+}
+
+Node* connect(Node* root) {
+  if (root == NULL) {
+    return NULL;
+  }
+
+  if (root->left) {
+    if (root->right) {
+      root->left->next = root->right;
+    } else {
+      root->left->next = findNext(root);
+    }
+  }
+
+  if (root->right) {
+    root->right->next = findNext(root);
+  }
+
+  connect(root->right);
+  connect(root->left);
+
+  return root;
 }
