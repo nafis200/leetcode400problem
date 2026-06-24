@@ -12,47 +12,42 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-    string removeDuplicateLetters(string s) {
-        unordered_map<char, int> mp;
+  string removeDuplicateLetters(string s) {
+  unordered_map<char, int> mp;
 
-        for(char c : s) {
-            mp[c]++;
-        }
+  for (char c : s) {
+    mp[c]++;
+  }
 
-        stack<char> st;
-        vector<bool> vis(256, false);
+  stack<char> st;
+  vector<bool> vis(256, false);
 
-        for(char c : s) {
+  for (char c : s) {
+    mp[c]--;
+    if(vis[c]) continue;
 
-            mp[c]--;
-
-            if(vis[c]) {
-                continue;
-            }
-
-            while(!st.empty() &&
-                  st.top() > c &&
-                  mp[st.top()] > 0) {
-
-                vis[st.top()] = false;
-                st.pop();
-            }
-
-            st.push(c);
-            vis[c] = true;
-        }
-
-        string ans;
-
-        while(!st.empty()) {
-            ans += st.top();
-            st.pop();
-        }
-
-        reverse(ans.begin(), ans.end());
-
-        return ans;
+    while (!st.empty() && st.top() > c && mp[st.top()] > 0) {
+      vis[st.top()] = false;
+      st.pop();
     }
+
+    if (!vis[c]) {
+      st.push(c);
+      vis[c] = true;
+    }
+  }
+
+  string ans;
+
+  while (!st.empty()) {
+    ans += st.top();
+    st.pop();
+  }
+
+  reverse(ans.begin(), ans.end());
+
+  return ans;
+}    
 
 int32_t main(){
     ios_base::sync_with_stdio();
