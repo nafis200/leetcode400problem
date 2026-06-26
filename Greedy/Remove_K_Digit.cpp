@@ -16,27 +16,34 @@
 #include <bits/stdc++.h>
 using namespace std;
 string removeKdigits(string num, int k) {
-  string ans = "";
-  int n = (int)num.size();
-  for (int i = 0; i < n; i++) {
-    if (ans.empty()) {
-      ans.push_back(num[i]);
-    } else {
-      if (k > 0 && ans.back() > num[i]) {
-        k--;
-        ans.pop_back();
-      }
-      ans.push_back(num[i]);
+  string st;
+
+  for (char c : num) {
+    while (!st.empty() && k > 0 && st.back() > c) {
+      st.pop_back();
+      k--;
     }
+
+    st.push_back(c);
   }
-  while(k > 0){
-     k--;
-     ans.pop_back();
+
+  while (k > 0) {
+    st.pop_back();
+    k--;
   }
-  if(ans.empty()){
-     ans = "0";
+
+  int i = 0;
+  while (i < st.size() && st[i] == '0') {
+    i++;
   }
-  return ans;
+
+  st = st.substr(i);
+
+  if (st.empty()) {
+    return "0";
+  }
+
+  return st;
 }
 int32_t main() {
   ios_base::sync_with_stdio(0);
