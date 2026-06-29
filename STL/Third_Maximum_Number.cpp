@@ -44,7 +44,7 @@ using namespace std;
 // 10  10  8
 // 11  10  8
 
- int thirdMax(vector<int>& nums) {
+int thirdMax(vector<int>& nums) {
         long first = LONG_MIN;
         long second = LONG_MIN;
         long third = LONG_MIN;
